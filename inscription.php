@@ -1,85 +1,113 @@
-<?php 
-    require_once 'config.php';
-?>
 <!DOCTYPE html>
     <html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="author" content="NoS1gnal"/>
+
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-            <title>Inscription</title>
+            <title>Connexion</title>
         </head>
         <body>
-            <div class="container">
-                <h1 class="py-3">Inscription</h1>
-                <div class="text-center">
-                    <?php 
-                    if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password_repeat']))
+        <div class="login-form">
+            <?php 
+                if(isset($_GET['reg_err']))
+                {
+                    $err = htmlspecialchars($_GET['reg_err']);
+
+                    switch($err)
                     {
-                        $nom = htmlspecialchars($_POST['nom']);
-                        $prenom = htmlspecialchars($_POST['prenom']);
-                        $email = htmlspecialchars($_POST['email']);
-                        $password = htmlspecialchars($_POST['password']);
-                        $password_r = htmlspecialchars($_POST['password_repeat']);
+                        case 'success':
+                        ?>
+                            <div class="alert alert-success">
+                                <strong>Succès</strong> inscription réussie !
+                            </div>
+                        <?php
+                        break;
 
-                            if(filter_var($email, FILTER_VALIDATE_EMAIL))
-                            {
-                                if($password == $password_r)
-                                {
-                                    $check = $bdd->prepare('SELECT email FROM tutoformulaire WHERE email = ?');
-                                    $check->execute(array($email));
-                                    $row = $check->rowCount();
-                                    
-                                    if($row == 0)
-                                    {
-                                        $password = hash('sha256', $password);
+                        case 'password':
+                        ?>
+                            <div class="alert alert-danger">
+                                <strong>Erreur</strong> mot de passe différent
+                            </div>
+                        <?php
+                        break;
 
-                                        $d = date('d/m/Y');
-                                        $h = date('h:i');
-                                        $date = $d." ".$h;
+                        case 'email':
+                        ?>
+                            <div class="alert alert-danger">
+                                <strong>Erreur</strong> email non valide
+                            </div>
+                        <?php
+                        break;
 
-                                        $nom = strtoupper($nom);
+                        case 'email_length':
+                        ?>
+                            <div class="alert alert-danger">
+                                <strong>Erreur</strong> email trop long
+                            </div>
+                        <?php 
+                        break;
 
-                                        $insert = $bdd->prepare('INSERT INTO tutoformulaire (nom, prenom, email, password, ip, date_inscription) VALUES (?, ?, ?, ?, ?, ?)');
-                                        $insert->execute(array($nom, $prenom, $email, $password, $_SERVER['REMOTE_ADDR'], $date));
-                                        echo "Inscription effectuée avec succès ! vous pouvez vous connecter";
-                                        
-                                    }
-                                    else 
-                                        echo "Compte deja existant";
-                                
-                                }   
-                                else 
-                                    echo "Mot de passe pas bon";
-                            }
-                            else 
-                                echo "Email non valide !";
-                        
+                        case 'pseudo_length':
+                        ?>
+                            <div class="alert alert-danger">
+                                <strong>Erreur</strong> pseudo trop long
+                            </div>
+                        <?php 
+                        case 'already':
+                        ?>
+                            <div class="alert alert-danger">
+                                <strong>Erreur</strong> compte deja existant
+                            </div>
+                        <?php 
+
                     }
+                }
                 ?>
-                </div>
-                <br>
+            
+            <form action="inscription_traitement.php" method="post">
+                <h2 class="text-center">Inscription</h2>       
                 <div class="form-group">
-                    <form action="" method="POST">
-                        <input type="text" name="nom" class="form-control" placeholder="Votre nom" autocomplete="off" required>
-                        <br>
-                        <input type="text" name="prenom" class="form-control" placeholder="Votre prénom" autocomplete="off" required>
-                        <br>
-                        <input type="email" name="email" class="form-control" placeholder="Votre email" autocomplete="off" required>
-                        <br>
-                        <input type="password" name="password" class="form-control" placeholder="Votre mot de passe" autocomplete="off" required>
-                        <br>
-                        <input type="password" name="password_repeat" class="form-control" placeholder="Re-tapez votre mot de passe" autocomplete="off" required>
-                        <br>
-                        <br>
-                        <button type="submit" class="btn btn-success">Inscription</button>
-                    </form>
+                    <input type="text" name="pseudo" class="form-control" placeholder="Pseudo" required="required" autocomplete="off">
                 </div>
-            </div>
-
+                <div class="form-group">
+                    <input type="email" name="email" class="form-control" placeholder="Email" required="required" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="Mot de passe" required="required" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password_retype" class="form-control" placeholder="Re-tapez le mot de passe" required="required" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Inscription</button>
+                </div>   
+            </form>
+        </div>
+        <style>
+            .login-form {
+                width: 340px;
+                margin: 50px auto;
+            }
+            .login-form form {
+                margin-bottom: 15px;
+                background: #f7f7f7;
+                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                padding: 30px;
+            }
+            .login-form h2 {
+                margin: 0 0 15px;
+            }
+            .form-control, .btn {
+                min-height: 38px;
+                border-radius: 2px;
+            }
+            .btn {        
+                font-size: 15px;
+                font-weight: bold;
+            }
+        </style>
         </body>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </html>
