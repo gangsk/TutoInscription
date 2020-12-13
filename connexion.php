@@ -22,7 +22,7 @@
                     $_SESSION['user'] = $data['email'];
                     header('Location: landing.php');
                     die();
-                }else header('Location: index.php?login_err=password');
-            }else header('Location: index.php?login_err=email');
-        }else header('Location: index.php?login_err=already');
+                }else{ header('Location: index.php?login_err=password'); die(); }
+            }else{ header('Location: index.php?login_err=email'); die(); }
+        }else{ header('Location: index.php?login_err=already'); die(); }
     }
