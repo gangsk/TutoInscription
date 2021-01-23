@@ -19,7 +19,9 @@
                     if(filter_var($email, FILTER_VALIDATE_EMAIL)){
                         if($password == $password_retype){
 
-                            $password = hash('sha256', $password);
+                            $cost = ['cost' => 12];
+                            $password = password_hash($password, PASSWORD_BCRYPT, $cost);
+                            
                             $ip = $_SERVER['REMOTE_ADDR'];
 
                             $insert = $bdd->prepare('INSERT INTO utilisateurs(pseudo, email, password, ip) VALUES(:pseudo, :email, :password, :ip)');
