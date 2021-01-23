@@ -16,8 +16,8 @@
         {
             if(filter_var($email, FILTER_VALIDATE_EMAIL))
             {
-                $password = hash('sha256', $password);
-                if($data['password'] === $password)
+                
+                if(password_verify($password, $data['password']))
                 {
                     $_SESSION['user'] = $data['email'];
                     header('Location: landing.php');
