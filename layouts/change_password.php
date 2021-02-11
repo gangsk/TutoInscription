@@ -29,11 +29,12 @@
 
         $current_password = hash('sha256', $current_password);
 
-        if($data_password['password'] === $current_password)
+        if(password_verify($current_password, $data_password['password']))
         {
             if($new_password == $new_password_retype){
 
-                $new_password = hash('sha256', $new_password);
+                $cost = ['cost' => 12];
+                $new_password = password_hash($new_password, PASSWORD_BCRYPT, $cost);
                 $update = $bdd->prepare('UPDATE utilisateurs SET password = :password WHERE email = :email');
                 $update->execute(array(
                     "password" => $new_password,
