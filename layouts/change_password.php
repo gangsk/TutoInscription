@@ -27,8 +27,6 @@
         ));
         $data_password = $check_password->fetch();
 
-        $current_password = hash('sha256', $current_password);
-
         if(password_verify($current_password, $data_password['password']))
         {
             if($new_password == $new_password_retype){
