@@ -14,7 +14,7 @@
 
 
     // Si les variables existent 
-    if(isset($_POST['current_password']) && isset($_POST['new_password']) && isset($_POST['new_password_retype'])){
+    if(!empty($_POST['current_password']) && !empty($_POST['new_password']) && !empty($_POST['new_password_retype'])){
         // XSS 
         $current_password = htmlspecialchars($_POST['current_password']);
         $new_password = htmlspecialchars($_POST['new_password']);
