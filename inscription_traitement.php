@@ -1,7 +1,7 @@
 <?php 
     require_once 'config.php';
 
-    if(isset($_POST['pseudo']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password_retype']))
+    if(!empty($_POST['pseudo']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['password_retype']))
     {
         $pseudo = htmlspecialchars($_POST['pseudo']);
         $email = htmlspecialchars($_POST['email']);
