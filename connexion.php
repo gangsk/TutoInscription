@@ -2,7 +2,7 @@
     session_start();
     require_once 'config.php';
 
-    if(isset($_POST['email']) && isset($_POST['password']))
+    if(!empty($_POST['email']) && !empty($_POST['password']))
     {
         $email = htmlspecialchars($_POST['email']);
         $password = htmlspecialchars($_POST['password']);
