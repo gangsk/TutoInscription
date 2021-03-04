@@ -1,4 +1,4 @@
-# RecoverPassword
+# Tuto Inscription
 
 Code source de la vidéo pour créer un système de connexion / inscription en PHP. 
 
