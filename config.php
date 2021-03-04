@@ -1,7 +1,7 @@
 <?php 
     try 
     {
-        $bdd = new PDO("mysql:host=localhost;dbname=youtube;charset=utf8", "root", "");
+        $bdd = new PDO("mysql:host=HOST;dbname=DB_NAME;charset=utf8", "LOGIN", "PASS");
     }
     catch(Exception $e)
     {
