@@ -43,9 +43,6 @@
                         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#change_password">
                           Changer mon mot de passe
                         </button>
-                        <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#avatar">
-                            Changer mon avatar
-                        </button>
                 </div>
             </div>
         </div>    
