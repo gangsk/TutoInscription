@@ -17,7 +17,7 @@
             if(strlen($pseudo) <= 100){
                 if(strlen($email) <= 100){
                     if(filter_var($email, FILTER_VALIDATE_EMAIL)){
-                        if($password == $password_retype){
+                        if($password === $password_retype){
 
                             $cost = ['cost' => 12];
                             $password = password_hash($password, PASSWORD_BCRYPT, $cost);
