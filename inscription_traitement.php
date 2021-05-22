@@ -30,7 +30,7 @@
                             $password = password_hash($password, PASSWORD_BCRYPT, $cost);
                             
                             // On stock l'adresse IP
-                            $ip = $_SERVER['REMOTE_ADDR'];
+                            $ip = $_SERVER['REMOTE_ADDR']; 
 
                             /*
                                 Pour ceux qui souhaite mettre en place un système de mot de passe oublié, pensez à mettre le champ token dans votre requête
