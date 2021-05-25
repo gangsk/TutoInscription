@@ -34,6 +34,7 @@
 
                             /*
                                 Pour ceux qui souhaite mettre en place un système de mot de passe oublié, pensez à mettre le champ token dans votre requête
+                                N'oubliez pas également d'ajouter le même champs à votre table utilisateurs
                                 $insert = $bdd->prepare('INSERT INTO utilisateurs(pseudo, email, password, ip, token) VALUES(:pseudo, :email, :password, :ip, :token)');
                                 $insert->execute(array(
                                     'pseudo' => $pseudo,
