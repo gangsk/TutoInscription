@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   `email` varchar(100) NOT NULL,
   `password` text NOT NULL,
   `ip` varchar(20) NOT NULL,
+  `token` text NOT NULL,
   `date_inscription` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
