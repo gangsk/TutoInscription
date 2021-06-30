@@ -20,24 +20,29 @@
         $new_password = htmlspecialchars($_POST['new_password']);
         $new_password_retype = htmlspecialchars($_POST['new_password_retype']);
 
-
-        $check_password  = $bdd->prepare('SELECT password FROM utilisateurs WHERE email = :email');
+        // On récupère les infos de l'utilisateur
+        $check_password  = $bdd->prepare('SELECT password FROM utilisateurs WHERE token = :token');
         $check_password->execute(array(
-            "email" => $_SESSION['user']
+            "token" => $_SESSION['user']
         ));
         $data_password = $check_password->fetch();
 
+        // Si le mot de passe est le bon
         if(password_verify($current_password, $data_password['password']))
         {
-            if($new_password == $new_password_retype){
+            // Si le mot de passe tapé est bon
+            if($new_password === $new_password_retype){
 
+                // On chiffre le mot de passe
                 $cost = ['cost' => 12];
                 $new_password = password_hash($new_password, PASSWORD_BCRYPT, $cost);
-                $update = $bdd->prepare('UPDATE utilisateurs SET password = :password WHERE email = :email');
+                // On met à jour la table utiisateurs
+                $update = $bdd->prepare('UPDATE utilisateurs SET password = :password WHERE token = :token');
                 $update->execute(array(
                     "password" => $new_password,
-                    "email" => $_SESSION['user']
+                    "token" => $_SESSION['user']
                 ));
+                // On redirige
                 header('Location: ../landing.php?err=success_password');
                 die();
             }
@@ -47,8 +52,10 @@
             die();
         }
 
-
-
+    }
+    else{
+        header('Location: ../landing.php');
+        die();
     }
 
 
