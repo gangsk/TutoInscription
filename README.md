@@ -4,6 +4,10 @@ Code source de la vidéo pour créer un système de connexion / inscription en P
 
 N'hésitez pas à fork et star ;)
 
+# Installation
+
+- Importez `utilisateurs.sql` dans votre base de données
+- Modifiez `config.php` avec vos identifiants
 
 # Vidéo
 https://www.youtube.com/watch?v=jEgzxXCB9-w
